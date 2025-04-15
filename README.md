@@ -2,6 +2,8 @@
 
 Uma aplicação web desenvolvida com React que permite analisar ficheiros diretamente no navegador, de forma local, segura e privada. Ideal para fins educativos, análise forense leve, demonstrações técnicas e portefólio pessoal.
 
+***** GITHUB PAGES PARA ACEDER À WEBAPP -> https://jp2025hub.github.io/analise-ficheiros-web/
+
 ## Funcionalidades
 
 - Análise local de ficheiros (sem envio para servidores)
