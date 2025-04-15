@@ -1,0 +1,56 @@
+.app-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background-color: #fafafa;
+}
+
+header,
+footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  margin-top: 3rem;
+  color: #777;
+}
+
+.clear-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-button:hover {
+  background-color: #c0392b;
+}
+
+
+.view-mode-toggle {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.view-mode-toggle button {
+  margin: 0 0.5rem;
+  background-color: #ddd;
+  color: #333;
+}
+
+.view-mode-toggle button.active {
+  background-color: #4caf50;
+  color: white;
+}
