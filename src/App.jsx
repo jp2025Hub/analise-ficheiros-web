@@ -8,6 +8,7 @@ import FileDropZone from './components/dropzone/FileDropZone'
 import MetadataDisplay from './components/views/MetadataDisplay'
 import HashViewer from './components/views/HashViewer'
 import FileContentViewer from './components/views/FileContentViewer'
+import HexViewer from './components/extras/HexViewer'
 import AdvancedFileDetails from './components/views/AdvancedFileDetails'
 import ExportButton from './components/views/ExportButton'
 import EntropyChart from './components/extras/EntropyChart'
@@ -86,6 +87,7 @@ function App() {
                     <EntropyChart buffer={buffer} />
                     <HashViewer buffer={buffer} />
                     <FileContentViewer file={file} buffer={buffer} />
+                    <HexViewer buffer={buffer} />
                     <AdvancedFileDetails file={file} buffer={buffer} />
                     <ExportButton file={file} buffer={buffer} />
                   </details>

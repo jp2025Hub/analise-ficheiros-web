@@ -27,7 +27,7 @@ function HashViewer({ buffer }) {
         ])
         setHashes({ sha1, sha256, sha512 })
         setStatus('Hashes gerados com sucesso!')
-      } catch (err) {
+      } catch {
         setStatus('❌ Erro ao calcular hashes.')
       }
 
@@ -41,7 +41,7 @@ function HashViewer({ buffer }) {
     try {
       await navigator.clipboard.writeText(valor)
       setStatus('Hash copiado para a área de transferência!')
-    } catch (err) {
+    } catch {
       setStatus('❌ Erro ao copiar hash.')
     }
   }
@@ -51,7 +51,7 @@ function HashViewer({ buffer }) {
     try {
       await navigator.clipboard.writeText(texto)
       setStatus('Todos os hashes copiados!')
-    } catch (err) {
+    } catch {
       setStatus('❌ Erro ao copiar todos os hashes.')
     }
   }
