@@ -9,7 +9,7 @@ Uma aplicação web desenvolvida com React que permite analisar ficheiros direta
 - Análise local de ficheiros (sem envio para servidores)
 - Leitura de metadados:
   - Nome do ficheiro
-  - Tipo MIME
+  - Tipo MIME (mapeado com a biblioteca `mime-types`)
   - Assinatura mágica (magic number)
   - Tamanho
   - Data da última modificação
@@ -30,6 +30,7 @@ Uma aplicação web desenvolvida com React que permite analisar ficheiros direta
 - React 19
 - Vite
 - Chart.js
+- mime-types
 - JavaScript moderno (ES Modules)
 - CSS modular (App.css, theme.css, layout.css)
 - Processamento local com APIs Web (FileReader, ArrayBuffer, TextDecoder)

@@ -5,6 +5,7 @@ import { getMagicNumber, detectFileTypeByMagic } from '../../utils/analysis/magi
 import { calculateEntropy } from '../../utils/analysis/entropyUtils'
 import { fileTypeDatabase } from '../../components/data/fileTypeDatabase'
 import { fileSignatures } from '../../components/data/fileSignatures'
+import { lookup as lookupMime } from 'mime-types'
 
 /**
  * Devolve um tipo MIME com base na extensão do nome do ficheiro.
@@ -12,20 +13,8 @@ import { fileSignatures } from '../../components/data/fileSignatures'
  * @returns {string|null}
  */
 function inferMimeFromExtension(filename) {
-  const ext = filename.split('.').pop().toLowerCase()
-  const mapping = {
-    txt: 'text/plain',
-    json: 'application/json',
-    html: 'text/html',
-    jpg: 'image/jpeg',
-    jpeg: 'image/jpeg',
-    png: 'image/png',
-    pdf: 'application/pdf',
-    csv: 'text/csv',
-    xml: 'application/xml',
-    js: 'application/javascript'
-  }
-  return mapping[ext] || null
+  const result = lookupMime(filename)
+  return result || null
 }
 
 /**
