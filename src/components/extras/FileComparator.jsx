@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ExportButton from '../views/ExportButton'
+import InfoCard from '../layout/InfoCard'
 
 /**
  * Componente que permite comparar dois ficheiros binariamente e exportar os seus metadados.
@@ -11,6 +12,7 @@ function FileComparator() {
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
   const [status, setStatus] = useState(null)
+  const [diferencas, setDiferencas] = useState([])
 
   /**
    * Compara dois ficheiros byte a byte e atualiza o estado.
@@ -25,6 +27,7 @@ function FileComparator() {
     if (fileList.length !== 2) {
       setError('Deves selecionar exatamente dois ficheiros para comparar.')
       setFilesData([])
+      setDiferencas([])
       setStatus(null)
       return
     }
@@ -42,23 +45,35 @@ function FileComparator() {
       const sameSize = viewA.length === viewB.length
       const sameContent = sameSize && viewA.every((byte, i) => byte === viewB[i])
 
-      // Base para futura comparação avançada (diferencas byte a byte)
-      // const diferencas = []
-      // for (let i = 0; i < Math.min(viewA.length, viewB.length); i++) {
-      //   if (viewA[i] !== viewB[i]) {
-      //     diferencas.push({ offset: i, byteA: viewA[i], byteB: viewB[i] })
-      //   }
-      // }
+      const diffs = []
+      const minLen = Math.min(viewA.length, viewB.length)
+      for (let i = 0; i < minLen; i++) {
+        if (viewA[i] !== viewB[i]) {
+          diffs.push({ offset: i, byteA: viewA[i], byteB: viewB[i] })
+        }
+      }
+      if (!sameSize) {
+        const longer = viewA.length > viewB.length ? viewA : viewB
+        for (let i = minLen; i < longer.length; i++) {
+          diffs.push({
+            offset: i,
+            byteA: viewA[i],
+            byteB: viewB[i]
+          })
+        }
+      }
 
       setFilesData([
         { file: fileA, buffer: bufferA },
         { file: fileB, buffer: bufferB }
       ])
+      setDiferencas(diffs)
       setResult(sameContent ? '✅ Os ficheiros são exatamente iguais.' : '❌ Os ficheiros são diferentes.')
       setStatus(null)
     } catch (err) {
       console.error(err)
       setError('Ocorreu um erro ao comparar os ficheiros.')
+      setDiferencas([])
       setStatus(null)
     }
   }
@@ -87,7 +102,20 @@ function FileComparator() {
           </ul>
           <p><strong>Resultado:</strong> {result}</p>
 
-          <ExportButton multipleFiles={filesData} />
+          {diferencas.length > 0 && (
+            <InfoCard
+              title={`Primeiras ${Math.min(20, diferencas.length)} diferenças`}
+              value={diferencas
+                .slice(0, 20)
+                .map(
+                  (d) =>
+                    `0x${d.offset.toString(16).padStart(8, '0')}: ${d.byteA?.toString(16).padStart(2, '0') ?? '--'} → ${d.byteB?.toString(16).padStart(2, '0') ?? '--'}`
+                )
+                .join('\n')}
+            />
+          )}
+
+          <ExportButton multipleFiles={filesData} report={{ diferencas }} />
         </div>
       )}
     </div>
