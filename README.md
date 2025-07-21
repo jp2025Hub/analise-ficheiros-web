@@ -16,6 +16,7 @@ Uma aplicação web desenvolvida com React que permite analisar ficheiros direta
   - Entropia (bits/byte)
 - Cálculo de hashes: SHA-1, SHA-256 e SHA-512
 - Pré-visualização do conteúdo (texto legível ou hexadecimal)
+- Visualização completa em hexadecimal (hex dump) com opção de expansão
 - Detalhes avançados para tipos como PDF, PNG, MP3
 - Gráfico de entropia por blocos
 - Comparação binária de dois ficheiros

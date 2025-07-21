@@ -37,8 +37,8 @@ export function detectFileTypeByMagic(magic, buffer = null, file = null) {
   // 2. Heurística por conteúdo (texto legível)
   if (buffer) {
     const text = new TextDecoder().decode(buffer.slice(0, 64))
-  // eslint-disable-next-line no-control-regex
-  const isAscii = /^[\x09\x0A\x0D\x20-\x7E]+$/.test(text) // inclui tabs e quebras de linha
+    // eslint-disable-next-line no-control-regex
+    const isAscii = /^[\x09\x0A\x0D\x20-\x7E]+$/.test(text) // inclui tabs e quebras de linha
     if (isAscii) return 'Texto ASCII'
   }
 
