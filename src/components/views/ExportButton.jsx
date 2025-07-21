@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { formatBytes, formatDate } from '../../utils/formatting/formatUtils'
+import { formatBytes } from '../../utils/formatting/formatUtils'
 import { getMagicNumber, detectFileTypeByMagic } from '../../utils/analysis/magicUtils'
 import { calculateEntropy } from '../../utils/analysis/entropyUtils'
 import { exportAsBlob } from '../../utils/export/exportUtils'
