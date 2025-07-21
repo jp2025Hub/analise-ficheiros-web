@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+/** Tamanho máximo permitido para cada ficheiro (em MB) */
+const MAX_FILE_SIZE_MB = 100
+
 /**
  * Componente que permite ao utilizador arrastar ou selecionar ficheiros.
  * Gera buffers a partir dos ficheiros e envia para o callback `onFilesLoaded`.
@@ -24,8 +27,8 @@ function FileDropZone({ onFilesLoaded }) {
     try {
       const fileDataList = await Promise.all(
         fileList.map(async (file) => {
-          if (file.size > 50 * 1024 * 1024) {
-            throw new Error(`O ficheiro "${file.name}" excede 50MB.`)
+          if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+            throw new Error(`O ficheiro "${file.name}" excede ${MAX_FILE_SIZE_MB}MB.`)
           }
           const buffer = await file.arrayBuffer()
           return { file, buffer }
