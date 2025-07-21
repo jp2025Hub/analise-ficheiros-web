@@ -17,13 +17,13 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 /**
  * Componente que gera um gráfico de barras com os níveis de entropia por bloco do ficheiro.
  *
- * @param {{ buffer: ArrayBuffer, show?: boolean }} props
+ * @param {{ buffer: ArrayBuffer, blockSize?: number, show?: boolean }} props
  * @returns {JSX.Element|null}
  */
-function EntropyChart({ buffer, show = true }) {
+function EntropyChart({ buffer, blockSize = 256, show = true }) {
   if (!buffer || !show) return null
 
-  const entropies = calculateBlockEntropy(buffer, 256)
+  const entropies = calculateBlockEntropy(buffer, blockSize)
   if (!entropies || entropies.length === 0) return null
 
   const data = {

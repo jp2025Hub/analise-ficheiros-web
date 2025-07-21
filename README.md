@@ -19,6 +19,7 @@ Uma aplicação web desenvolvida com React que permite analisar ficheiros direta
 - Visualização completa em hexadecimal (hex dump) com opção de expansão
 - Detalhes avançados para tipos como PDF, PNG, MP3
 - Gráfico de entropia por blocos
+- Tamanho de bloco configurável para o gráfico de entropia
 - Comparação binária de dois ficheiros
 - Exportação dos dados analisados em formato JSON ou TXT
 - Suporte a múltiplos ficheiros
@@ -77,6 +78,14 @@ Todos os ficheiros são lidos apenas no navegador. Nenhuma informação é envia
 │   │       └── exportUtils.js
 -------------------------------------------------------
 
+
+## Exemplo de Utilização
+
+```jsx
+<EntropyChart buffer={arrayBuffer} blockSize={512} />
+```
+
+Define o tamanho de cada bloco lido ao calcular a entropia.
 
 ## Licença
 
