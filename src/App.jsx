@@ -25,6 +25,7 @@ function App() {
   const [files, setFiles] = useState([])
   const [viewMode, setViewMode] = useState('analisar')
   const [expandedAll, setExpandedAll] = useState(true)
+  const [blockSize, setBlockSize] = useState(256)
 
   const handleFilesLoaded = (fileDataList) => {
     setFiles(fileDataList)
@@ -68,12 +69,25 @@ function App() {
             {files.length > 0 && (
               <div className="results">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <button className="clear-button" onClick={handleClearFiles}>
-                    Limpar Ficheiros
-                  </button>
-                  <button onClick={toggleAll}>
-                    {expandedAll ? 'Recolher Todos' : 'Expandir Todos'}
-                  </button>
+                  <div>
+                    <button className="clear-button" onClick={handleClearFiles}>
+                      Limpar Ficheiros
+                    </button>
+                    <button onClick={toggleAll} style={{ marginLeft: '0.5rem' }}>
+                      {expandedAll ? 'Recolher Todos' : 'Expandir Todos'}
+                    </button>
+                  </div>
+                  <div>
+                    <label htmlFor="block-size-input" style={{ marginRight: '0.25rem' }}>Tamanho do bloco:</label>
+                    <input
+                      id="block-size-input"
+                      type="number"
+                      min="1"
+                      value={blockSize}
+                      onChange={(e) => setBlockSize(parseInt(e.target.value, 10) || 1)}
+                      style={{ width: '5rem' }}
+                    />
+                  </div>
                 </div>
 
                 {files.map(({ file, buffer }, index) => (
@@ -84,7 +98,7 @@ function App() {
                   >
                     <summary><h2>{file.name}</h2></summary>
                     <MetadataDisplay file={file} buffer={buffer} />
-                    <EntropyChart buffer={buffer} />
+                    <EntropyChart buffer={buffer} blockSize={blockSize} />
                     <HashViewer buffer={buffer} />
                     <FileContentViewer file={file} buffer={buffer} />
                     <HexViewer buffer={buffer} />
