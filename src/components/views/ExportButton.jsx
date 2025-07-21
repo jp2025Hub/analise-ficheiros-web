@@ -12,11 +12,12 @@ import { fileSignatures } from '../../components/data/fileSignatures'
  * @param {{
  *  file?: File,
  *  buffer?: ArrayBuffer,
- *  multipleFiles?: Array<{ file: File, buffer: ArrayBuffer }>
+ *  multipleFiles?: Array<{ file: File, buffer: ArrayBuffer }>,
+ *  report?: any
  * }} props
  * @returns {JSX.Element}
  */
-function ExportButton({ file, buffer, multipleFiles = null }) {
+function ExportButton({ file, buffer, multipleFiles = null, report = null }) {
   const [status, setStatus] = useState('')
 
   const exportSingleJSON = () => {
@@ -74,6 +75,26 @@ Programas Recomendados: ${data.programas}
     }
   }
 
+  const exportReportJSON = () => {
+    try {
+      const content = JSON.stringify(report, null, 2)
+      exportAsBlob(content, `relatorio_comparacao.json`, 'application/json')
+      setStatus('Relatório exportado em JSON!')
+    } catch {
+      setStatus('❌ Erro na exportação do relatório.')
+    }
+  }
+
+  const exportReportTXT = () => {
+    try {
+      const content = typeof report === 'string' ? report : JSON.stringify(report, null, 2)
+      exportAsBlob(content, `relatorio_comparacao.txt`, 'text/plain')
+      setStatus('Relatório exportado em TXT!')
+    } catch {
+      setStatus('❌ Erro na exportação do relatório.')
+    }
+  }
+
   /**
    * Extrai os metadados relevantes de um ficheiro e buffer.
    * @param {File} f
@@ -115,6 +136,12 @@ Programas Recomendados: ${data.programas}
       )}
       {multipleFiles && (
         <button onClick={exportAllJSON}>Exportar Todos (JSON)</button>
+      )}
+      {report && (
+        <>
+          <button onClick={exportReportJSON}>Relatório JSON</button>
+          <button onClick={exportReportTXT}>Relatório TXT</button>
+        </>
       )}
       {status && <p className="status-message">{status}</p>}
     </div>
